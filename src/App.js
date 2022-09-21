@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 import MoviesList from "./components/MoviesList";
 import "./App.css";
@@ -10,7 +10,7 @@ function App() {
   const [error, setError] = useState(null);
 
   // Fetching movies upon button click
-  const fetchMoviesHandler = async function () {
+  const fetchMoviesHandler = useCallback(async function () {
     setError(null);
     setIsLoding(true);
 
@@ -39,7 +39,11 @@ function App() {
       setError(error.message);
     }
     setIsLoding(false);
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchMoviesHandler();
+  }, [fetchMoviesHandler]);
 
   // Rendered conditional contents
 
