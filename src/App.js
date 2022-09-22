@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 
 import MoviesList from "./components/MoviesList";
 import "./App.css";
+import AddMovie from "./components/AddMovie";
 
 function App() {
   // Slices of state
@@ -45,6 +46,12 @@ function App() {
     fetchMoviesHandler();
   }, [fetchMoviesHandler]);
 
+  // Added movie
+
+  const addMovieHandler = function (movie) {
+    console.log(movie);
+  };
+
   // Rendered conditional contents
 
   let content = <p>Found no Movies.</p>;
@@ -62,6 +69,9 @@ function App() {
 
   return (
     <React.Fragment>
+      <section>
+        <AddMovie onAddMovie={addMovieHandler} />
+      </section>
       <section>
         <button onClick={fetchMoviesHandler}>Fetch Movies</button>
       </section>
