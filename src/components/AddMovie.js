@@ -28,15 +28,25 @@ const AddMovie = (props) => {
     <form onSubmit={submitHandler}>
       <div className={styles.control}>
         <label htmlFor="title">Title</label>
-        <input type="text" id="title" ref={titleRef} />
+        <input placeholder="Spider-Man" type="text" id="title" ref={titleRef} />
       </div>
       <div className={styles.control}>
         <label htmlFor="opening-text">Opening Text</label>
-        <textarea rows="5" id="opening-text" ref={openingTextRef}></textarea>
+        <textarea
+          placeholder="Some text...."
+          rows="5"
+          id="opening-text"
+          ref={openingTextRef}
+        ></textarea>
       </div>
       <div className={styles.control}>
         <label htmlFor="date">Release Date</label>
-        <input type="text" id="date" ref={releaseDateRef} />
+        <input
+          placeholder="2022-11-25"
+          type="text"
+          id="date"
+          ref={releaseDateRef}
+        />
       </div>
       <button>Add Movie</button>
     </form>

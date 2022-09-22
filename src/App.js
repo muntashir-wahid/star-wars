@@ -17,26 +17,40 @@ function App() {
 
     // Trying to Fetch data
     try {
-      const res = await fetch("https://swapi.dev/api/films");
+      const res = await fetch(
+        "https://star-wars-9727f-default-rtdb.firebaseio.com/movies.json"
+      );
 
       // Handle error
       if (!res.ok) {
         throw new Error("Something went worong!");
       }
 
-      // Successfull response
+      // Response with data
       const data = await res.json();
-      const transformedMovies = data.results.map((movieData) => {
-        return {
-          id: movieData.episode_id,
-          title: movieData.title,
-          releaseDate: movieData.release_date,
-          openingText: movieData.opening_crawl,
+      const loadedMoies = [];
+      for (const key in data) {
+        const movie = {
+          id: key,
+          title: data[key].title,
+          releaseDate: data[key].releaseDate,
+          openingText: data[key].openingText,
         };
-      });
-      setMovies(transformedMovies);
+        loadedMoies.push(movie);
+      }
+
+      // Handling No data Error
+
+      if (!data) {
+        throw new Error("No movies available");
+      }
+
+      // Set data into a state variable
+      setMovies(loadedMoies);
+      // console.log();
     } catch (error) {
       // Catch Errors
+
       setError(error.message);
     }
     setIsLoding(false);
@@ -46,10 +60,21 @@ function App() {
     fetchMoviesHandler();
   }, [fetchMoviesHandler]);
 
-  // Added movie
+  // Add new movies
+  const addMovieHandler = async function (movie) {
+    const res = await fetch(
+      "https://star-wars-9727f-default-rtdb.firebaseio.com/movies.json",
+      {
+        method: "POST",
+        body: JSON.stringify(movie),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-  const addMovieHandler = function (movie) {
-    console.log(movie);
+    const data = await res.json();
+    console.log(data);
   };
 
   // Rendered conditional contents
